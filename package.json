@@ -9,7 +9,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start-server": "nodemon server.js",
+    "build-css": "npx @tailwindcss/cli -i ./public/css/style.css -o ./public/css/output.css --watch",
+    "start": "concurrently \"npm run start-server\" \"npm run build-css\""
   },
   "keywords": [],
   "author": "",
@@ -25,5 +27,8 @@
     "mongoose": "^8.19.3",
     "socket.io": "^4.8.1",
     "tailwindcss": "^4.1.16"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
