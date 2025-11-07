@@ -3,6 +3,8 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 
+// import database connection 
+import { connectDB } from "./src/config/db.js"
 // Import Routers 
 import { homeRouter } from "./src/routes/homeRouter.js";
 import { adminRouter } from "./src/routes/adminRouter.js";
@@ -18,6 +20,9 @@ const app = express();
 // Fix for __dirname in ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+//connect to database 
+connectDB()
 
 app.use(cors());
 app.use(express.json());
