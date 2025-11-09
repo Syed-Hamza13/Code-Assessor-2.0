@@ -1,10 +1,13 @@
 import express from "express";
 import path from "path";
-import rootDir from "../utils/pathUtils.js";
+
+// import rootDir from "../utils/pathUtils.js";
+import { signupCollege, loginCollege, logoutCollege } from "../controllers/authController.js";
 
 import { studentPagesPath} from "./studentRouter.js";
 import { collegePagesPath} from "./adminRouter.js";
 import { teacherPagesPath} from "./teacherRouter.js";
+
 const authRouter = express.Router(); 
 
 
@@ -17,6 +20,10 @@ authRouter.get("/college/login", (req, res) => {
   res.sendFile(path.join(collegePagesPath, "login.html"));
 });
 
+authRouter.post("/college/signup", signupCollege);
+authRouter.post("/college/login", loginCollege);
+authRouter.post("/college/logout", logoutCollege);
+
 // teacher auth routes
 authRouter.get("/teacher/login", (req, res) => {
     res.sendFile(path.join(teacherPagesPath, "login.html"));
@@ -28,3 +35,14 @@ authRouter.get("/student/login", (req, res) => {
 });
 
 export { authRouter };
+
+
+// import express from "express";
+// import { signupCollege, loginCollege } from "../controllers/authController.js";
+
+// const authRouter = express.Router();
+
+// authRouter.post("/college/signup", signupCollege);
+// authRouter.post("/college/login", loginCollege);
+
+// export { authRouter };

@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import path from "path";
+import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
 
 // import database connection 
@@ -23,10 +24,11 @@ const __dirname = path.dirname(__filename);
 
 //connect to database 
 connectDB()
-
+ 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Serve static files
 app.use(express.static(path.join(__dirname, "public")));
