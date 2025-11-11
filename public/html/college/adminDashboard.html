@@ -1,152 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>welcome to college dashboard</h1>
-    <button>Logout</button>
-    <style>
-      .add-class-btn {
-        background: #0078d4;
-        color: #fff;
-        border: none;
-        padding: 8px 14px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-      }
 
-      #overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.45);
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-      }
-      #overlay.active { display: flex; }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
 
-      .card {
-        background: #fff;
-        border-radius: 10px;
-        padding: 18px;
-        width: 340px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-        font-family: sans-serif;
-      }
-      .card h2 { margin: 0 0 12px; font-size: 18px; color:#111; }
-      .field { margin-bottom: 10px; }
-      .field label { display:block; font-size:13px; margin-bottom:6px; color:#333; }
-      .field input, .field select {
-        width:100%;
-        padding:8px 10px;
-        border:1px solid #e0e0e0;
-        border-radius:6px;
-        font-size:14px;
-        box-sizing:border-box;
-      }
+<body>
+  <h1>welcome to college dashboard</h1>
+  <button>Logout</button>
+  <style>
+    .add-class-btn {
+      background: #0078d4;
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
 
-      .actions { display:flex; justify-content:flex-end; gap:8px; margin-top:8px; }
-      .btn {
-        padding:8px 12px;
-        border-radius:6px;
-        border: none;
-        cursor: pointer;
-        font-size:14px;
-      }
-      .btn.ghost { background: transparent; border: 1px solid #ccd0d6; color:#222; }
-      .btn.primary { background:#0078d4; color:#fff; }
-    </style>
+    #overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
 
-    <button class="add-class-btn">Add Class</button>
+    #overlay.active {
+      display: flex;
+    }
 
-    <div id="overlay" aria-hidden="true">
-      <div class="card" role="dialog" aria-modal="true" aria-labelledby="cardTitle">
-        <h2 id="cardTitle">Class Details</h2>
-        <form id="classForm">
-          <div class="field">
-            <label for="semester">Semester</label>
-            <select id="semester" name="semester">
-              <option value="">Select</option>
-                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
-                <option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option>
-              </select>
-              </div>
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 18px;
+      width: 340px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      font-family: sans-serif;
+    }
 
-              <div class="field">
-              <label for="year">Year</label>
-              <select id="year" name="year">
-                <option value="">Select</option>
-                <option value="1">First Year</option>
-                <option value="2">Second Year</option>
-                <option value="3">Third Year</option>
-                <option value="4">Fourth Year</option>
-              </select>
-              </div>
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      color: #111;
+    }
 
-              <div class="field">
-              <label for="subject">Subject</label>
-              <input id="subject" name="subject" type="text" placeholder="Subject name" />
-              </div>
+    .field {
+      margin-bottom: 10px;
+    }
 
-              <div class="field">
-              <label for="branch">Branch</label>
-              <select id="branch" name="branch">
-                <option value="">Select</option>
-                <option value="cse">Computer Science Engineering</option>
-                <option value="eee">Electrical Engineering</option>
-                <option value="mech">Mechanical Engineering</option>
-                <option value="ece">Electronics and Telecommunication Engineering</option>
-              </select>
-              </div>
+    .field label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: #333;
+    }
 
-              <div class="actions">
-              <button type="button" class="btn ghost" id="cancelBtn">Cancel</button>
-              <button type="submit" class="btn primary" id="submitBtn">Submit</button>
-              </div>
-            </form>
-            
-          </div>
+    .field input,
+    .field select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
 
-        </form>
-      </div>
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .btn {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn.ghost {
+      background: transparent;
+      border: 1px solid #ccd0d6;
+      color: #222;
+    }
+
+    .btn.primary {
+      background: #0078d4;
+      color: #fff;
+    }
+  </style>
+
+  <button id="addClassBtn" class="add-class-btn">Add Class</button>
+
+  <div id="classList" class="grid-container"></div>
+
+
+  <div id="overlay" aria-hidden="true">
+    <div class="card" role="dialog" aria-modal="true" aria-labelledby="cardTitle">
+      <h2 id="cardTitle">Class Details</h2>
+      <form id="classForm">
+        <div class="field">
+          <label for="semester">Semester</label>
+          <select id="semester" name="semester">
+            <option value="">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="year">Year</label>
+          <select id="year" name="year">
+            <option value="">Select</option>
+            <option value="1">First Year</option>
+            <option value="2">Second Year</option>
+            <option value="3">Third Year</option>
+            <option value="4">Fourth Year</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" type="text" placeholder="Subject name" />
+        </div>
+
+        <div class="field">
+          <label for="branch">Branch</label>
+          <select id="branch" name="branch">
+            <option value="">Select</option>
+            <option value="cse">Computer Science Engineering</option>
+            <option value="eee">Electrical Engineering</option>
+            <option value="mech">Mechanical Engineering</option>
+            <option value="ece">Electronics and Telecommunication Engineering</option>
+          </select>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn ghost" id="cancelBtn">Cancel</button>
+          <button type="submit" class="btn primary" id="submitBtn">Submit</button>
+        </div>
+      </form>
+
     </div>
 
-    <script>
-      const overlay = document.getElementById('overlay');
-      const openBtn = document.querySelector('.add-class-btn');
-      const cancelBtn = document.getElementById('cancelBtn');
-      const form = document.getElementById('classForm');
+    </form>
+  </div>
+  </div>
 
-      openBtn.addEventListener('click', () => {
-        overlay.classList.add('active');
-        overlay.setAttribute('aria-hidden', 'false');
-        document.getElementById('semester').focus();
-      });
+  <script>
+    const overlay = document.getElementById('overlay');
+    const openBtn = document.querySelector('.add-class-btn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const form = document.getElementById('classForm');
 
-      cancelBtn.addEventListener('click', () => {
+    openBtn.addEventListener('click', () => {
+      overlay.classList.add('active');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.getElementById('semester').focus();
+    });
+
+    cancelBtn.addEventListener('click', () => {
+      overlay.classList.remove('active');
+      overlay.setAttribute('aria-hidden', 'true');
+    });
+
+    // close when clicking outside the card
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
         overlay.classList.remove('active');
         overlay.setAttribute('aria-hidden', 'true');
-      });
+      }
+    });
 
-      // close when clicking outside the card
-      overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) {
-          overlay.classList.remove('active');
-          overlay.setAttribute('aria-hidden', 'true');
-        }
-      });
-
-      // Submit should do nothing for now
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        // intentionally left blank
-      });
-    </script>
+    // Submit should do nothing for now
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // intentionally left blank
+    });
+  </script>
   <script>
     // Check token before loading dashboard
     (async () => {
@@ -192,5 +237,78 @@
       }
     });
   </script>
-  </body>
+
+  <!-- adding classes and listing classes script  -->
+  <script>
+    // const form = document.getElementById("classForm");
+    // const overlay = document.getElementById("overlay");
+    // const cancelBtn = document.getElementById("cancelBtn");
+
+    // open overlay when "Add Class" clicked
+    document.getElementById("addClassBtn").addEventListener("click", () => {
+      overlay.style.display = "flex";
+    });
+
+    cancelBtn.addEventListener("click", () => {
+      overlay.style.display = "none";
+    });
+
+    // submit form
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = {
+        semester: form.semester.value,
+        year: form.year.value,
+        subject: form.subject.value,
+        branch: form.branch.value
+      };
+
+      try {
+        const res = await fetch("/college/create-class", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify(formData)
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          alert("Class added successfully!");
+          overlay.style.display = "none";
+          loadClasses();
+        } else {
+          alert(data.message || "Failed to add class");
+        }
+      } catch (err) {
+        console.error("Error:", err);
+        alert("Something went wrong");
+      }
+    });
+
+    async function loadClasses() {
+      const res = await fetch("/college/classes", { credentials: "include" });
+      const classes = await res.json();
+      const container = document.getElementById("classList");
+      container.innerHTML = "";
+
+      classes.forEach(c => {
+        const card = document.createElement("div");
+        card.classList.add("class-card");
+        card.innerHTML = `
+      <h3>${c.subject}</h3>
+      <p>Semester: ${c.semester}</p>
+      <p>Year: ${c.year}</p>
+      <p>Branch: ${c.branch}</p>
+      <button class="manage-btn">Manage</button>
+    `;
+        container.appendChild(card);
+      });
+    }
+
+    // load classes on page load
+    loadClasses();
+  </script>
+
+</body>
+
 </html>
