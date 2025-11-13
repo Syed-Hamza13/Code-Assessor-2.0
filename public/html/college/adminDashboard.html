@@ -285,13 +285,15 @@
       }
     });
 
+    let classesList = [];
+
     async function loadClasses() {
       const res = await fetch("/college/classes", { credentials: "include" });
-      const classes = await res.json();
+      classesList = await res.json();
       const container = document.getElementById("classList");
       container.innerHTML = "";
 
-      classes.forEach(c => {
+      classesList.forEach(c => {
         const card = document.createElement("div");
         card.classList.add("class-card");
         card.innerHTML = `
@@ -299,7 +301,8 @@
       <p>Semester: ${c.semester}</p>
       <p>Year: ${c.year}</p>
       <p>Branch: ${c.branch}</p>
-      <button class="manage-btn">Manage</button>
+      <button class="manage-class-btn" data-class-id="${c._id}">Manage Class</button>
+
     `;
         container.appendChild(card);
       });
@@ -307,6 +310,18 @@
 
     // load classes on page load
     loadClasses();
+
+    document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("manage-class-btn")) {
+    const classId = e.target.getAttribute("data-class-id");
+    const selectedClass = classesList.find(c => c._id === classId);
+    if (selectedClass) {
+      localStorage.setItem("selectedClass", JSON.stringify(selectedClass));
+      window.location.href = "/college/manage-class";
+    }
+  }
+});
+
   </script>
 
 </body>
