@@ -97,7 +97,7 @@
       color: #fff;
     }
 
-    /* assign teacher enrol student  styles */
+    /* add teacher enrol student  styles */
     .container {
       padding: 20px;
       background-color: #f5f5f5;
@@ -135,11 +135,11 @@
       font-size: 16px;
     }
 
-    .assign-teacher {
+    .add-teacher {
       background-color: #007bff;
     }
 
-    .enroll-student {
+    .add-student {
       background-color: #28a745;
     }
 
@@ -238,7 +238,7 @@
 
     .overlay-buttons .action-btn {
       background-color: #007bff;
-      /* Blue for Assign/Enroll */
+      /* Blue for add */
     }
   </style>
 
@@ -306,48 +306,22 @@
   </div>
   </div>
   <div class="button-container">
-    <button class="button assign-teacher" id="assignTeacherBtn">
+    <button class="button add-teacher" id="addTeacherBtn">
       Add Teacher
     </button>
-    <button class="button enroll-student" id="enrollStudentBtn">
+    <button class="button add-student" id="addStudentBtn">
       Add Student
     </button>
   </div>
-  <div id="assignTeacherOverlay" class="overlay">
+  <div id="addTeacherOverlay" class="overlay">
     <div class="overlay-content">
       <h3>Add Teacher</h3>
-      <form id="assignTeacherForm">
+      <form id="addTeacherForm">
         <div class="form-group">
           <label for="teacherName">Teacher Name</label>
           <input type="text" id="teacherName" name="teacherName" required />
         </div>
-        <!-- <div class="form-group">
-            <label for="teacherSubject">Subject</label>
-            <input
-              type="text"
-              id="teacherSubject"
-              name="teacherSubject"
-              readonly
-            />
-          </div> -->
-        <!-- <div class="form-group">
-            <label for="teacherSemester">Semester</label>
-            <input
-              type="text"
-              id="teacherSemester"
-              name="teacherSemester"
-              readonly
-            />
-          </div> -->
-        <!-- <div class="form-group">
-            <label for="teacherBranch">Branch</label>
-            <input
-              type="text"
-              id="teacherBranch"
-              name="teacherBranch"
-              readonly
-            />
-          </div> -->
+
         <div class="form-group">
           <label for="teacherId">Teacher ID</label>
           <input type="text" id="teacherId" name="teacherId" required />
@@ -357,21 +331,21 @@
           <input type="password" id="teacherPassword" name="teacherPassword" required />
         </div>
         <div class="overlay-buttons">
-          <button type="button" class="button cancel-btn" onclick="closeOverlay('assignTeacherOverlay')">
+          <button type="button" class="button cancel-btn" onclick="closeOverlay('addTeacherOverlay')">
             Cancel
           </button>
-          <button type="submit" class="button action-btn">Assign</button>
+          <button type="submit" class="button action-btn">Add</button>
         </div>
       </form>
     </div>
   </div>
 
-  <div id="enrollStudentOverlay" class="overlay">
+  <div id="addStudentOverlay" class="overlay">
     <div class="overlay-content">
-      <h3>Enroll Student</h3>
-      <form id="enrollStudentForm">
+      <h3>Add Student</h3>
+      <form id="addStudentForm">
         <div class="form-group" style="text-align: center; margin-bottom: 25px">
-          <label style="font-size: 1.1em; color: #333">Choose Enrollment Method:</label>
+          <label style="font-size: 1.1em; color: #333">Choose addment Method:</label>
           <div style="
                 margin-top: 10px;
                 display: flex;
@@ -379,11 +353,11 @@
                 gap: 20px;
               ">
             <label>
-              <input type="radio" name="enrollMethod" value="manual" id="radioManual" checked />
+              <input type="radio" name="addMethod" value="manual" id="radioManual" checked />
               Manual Form
             </label>
             <label>
-              <input type="radio" name="enrollMethod" value="excel" id="radioExcel" />
+              <input type="radio" name="addMethod" value="excel" id="radioExcel" />
               Excel Upload
             </label>
           </div>
@@ -391,14 +365,14 @@
 
         <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 20px" />
 
-        <div id="manualEnrollSection">
+        <div id="manualaddSection">
           <div class="form-group">
             <label for="studentName">Student Name</label>
             <input type="text" id="studentName" name="studentName" required />
           </div>
           <div class="form-group">
-            <label for="enrollmentNo">Enrollment No.</label>
-            <input type="text" id="enrollmentNo" name="enrollmentNo" required />
+            <label for="addmentNo">addment No.</label>
+            <input type="text" id="addmentNo" name="addmentNo" required />
           </div>
 
           <div class="field">
@@ -452,16 +426,19 @@
         </div>
 
         <div class="overlay-buttons">
-          <button type="button" class="button cancel-btn" onclick="closeOverlay('enrollStudentOverlay')">
+          <button type="button" class="button cancel-btn" onclick="closeOverlay('addStudentOverlay')">
             Cancel
           </button>
-          <button type="submit" class="button action-btn" id="finalEnrollBtn">
-            Enroll
+          <button type="submit" class="button action-btn" id="finalAddBtn">
+            add
           </button>
         </div>
       </form>
     </div>
   </div>
+  <h2>Teachers List</h2>
+  <div id="teachersContainer"></div>
+
 
   <script>
     const overlay = document.getElementById('overlay');
@@ -542,9 +519,6 @@
 
   <!-- adding classes and listing classes script  -->
   <script>
-    // const form = document.getElementById("classForm");
-    // const overlay = document.getElementById("overlay");
-    // const cancelBtn = document.getElementById("cancelBtn");
 
     // open overlay when "Add Class" clicked
     document.getElementById("addClassBtn").addEventListener("click", () => {
@@ -627,7 +601,7 @@
   </script>
 
 
-  <!-- assign teacher enroll student functionality  -->
+  <!-- add teacher add student functionality  -->
   <script>
     // Function to close any overlay
     function closeOverlay(overlayId) {
@@ -651,67 +625,95 @@
       // document.getElementById("display-branch").textContent =
       //   selectedClass.branch;
 
-      // --- Assign Teacher Overlay Logic ---
-      const assignTeacherBtn = document.getElementById("assignTeacherBtn");
-      const assignTeacherOverlay = document.getElementById(
-        "assignTeacherOverlay"
+      // --- add Teacher Overlay Logic ---
+      const addTeacherBtn = document.getElementById("addTeacherBtn");
+      const addTeacherOverlay = document.getElementById(
+        "addTeacherOverlay"
       );
       const teacherSubjectInput = document.getElementById("teacherSubject");
       const teacherSemesterInput = document.getElementById("teacherSemester");
       const teacherBranchInput = document.getElementById("teacherBranch");
-      const assignTeacherForm = document.getElementById("assignTeacherForm");
+      const addTeacherForm = document.getElementById("addTeacherForm");
 
-      assignTeacherBtn.addEventListener("click", () => {
+      addTeacherBtn.addEventListener("click", () => {
         // Pre-fill fields from selectedClass
         // teacherSubjectInput.value = selectedClass.subject;
         // teacherSemesterInput.value = selectedClass.semester;
         // teacherBranchInput.value = selectedClass.branch;
-        assignTeacherOverlay.classList.add("active"); // Show overlay
+        addTeacherOverlay.classList.add("active"); // Show overlay
       });
 
-      // Prevent form submission for Assign Teacher (as requested)
-      assignTeacherForm.addEventListener("submit", (e) => {
+      // Prevent form submission for add Teacher (as requested)
+      addTeacherForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        alert("Teacher Assignment form submitted (action not implemented)");
-        closeOverlay("assignTeacherOverlay");
+
+        const data = {
+          teacherName: document.getElementById("teacherName").value,
+          teacherId: document.getElementById("teacherId").value,
+          teacherPassword: document.getElementById("teacherPassword").value
+        };
+
+        try {
+          const res = await fetch("/college/add-teacher", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify(data)
+          });
+
+          const json = await res.json();
+
+          if (res.ok) {
+            alert("Teacher added!");
+            loadTeachers(); // neeche banayenge
+            closeOverlay("addTeacherOverlay");
+          } else {
+            alert(json.message);
+          }
+
+        } catch (err) {
+          console.log(err);
+          alert("Failed to add teacher");
+        }
       });
 
-      // --- Enroll Student Overlay Logic ---
-      // --- Enroll Student Overlay Logic ---
-      const enrollStudentBtn = document.getElementById("enrollStudentBtn");
-      const enrollStudentOverlay = document.getElementById(
-        "enrollStudentOverlay"
+
+      // --- add Student Overlay Logic ---
+      // --- add Student Overlay Logic ---
+      const addStudentBtn = document.getElementById("addStudentBtn");
+      const addStudentOverlay = document.getElementById(
+        "addStudentOverlay"
       );
       const studentYearInput = document.getElementById("studentYear");
       const studentSemesterInput = document.getElementById("studentSemester");
       const studentBranchInput = document.getElementById("studentBranch");
-      const enrollStudentForm = document.getElementById("enrollStudentForm");
+      const addStudentForm = document.getElementById("addStudentForm");
 
-      const manualEnrollSection = document.getElementById(
-        "manualEnrollSection"
+      const manualaddSection = document.getElementById(
+        "manualaddSection"
       );
       const excelUploadSection =
         document.getElementById("excelUploadSection");
       const excelFileInput = document.getElementById("excelFile");
       const studentNameInput = document.getElementById("studentName");
-      const enrollmentNoInput = document.getElementById("enrollmentNo");
-      const finalEnrollBtn = document.getElementById("finalEnrollBtn");
+      const addmentNoInput = document.getElementById("addmentNo");
+      const finalAddBtn = document.getElementById("finalAddBtn");
 
       const radioManual = document.getElementById("radioManual");
       const radioExcel = document.getElementById("radioExcel");
 
       // Function to manage field enablement/disabling based on method
-      function switchEnrollmentMethod(method) {
+      function switchaddmentMethod(method) {
         if (method === "manual") {
           // Manual Mode
-          manualEnrollSection.style.display = "block";
+          manualaddSection.style.display = "block";
           excelUploadSection.style.display = "none";
-          finalEnrollBtn.textContent = "Enroll";
+          finalAddBtn.textContent = "add";
 
           // Enable Manual Inputs, Set Required
           studentNameInput.required = true;
-          enrollmentNoInput.required = true;
-          manualEnrollSection
+          addmentNoInput.required = true;
+          manualaddSection
             .querySelectorAll("input:not([readonly])")
             .forEach((input) => (input.disabled = false));
 
@@ -721,14 +723,14 @@
           excelFileInput.value = ""; // Clear selected file
         } else if (method === "excel") {
           // Excel Mode
-          manualEnrollSection.style.display = "none";
+          manualaddSection.style.display = "none";
           excelUploadSection.style.display = "block";
-          finalEnrollBtn.textContent = "Upload & Enroll";
+          finalAddBtn.textContent = "Upload & add";
 
           // Disable Manual Inputs, Remove Required
           studentNameInput.required = false;
-          enrollmentNoInput.required = false;
-          manualEnrollSection
+          addmentNoInput.required = false;
+          manualaddSection
             .querySelectorAll("input:not([readonly])")
             .forEach((input) => {
               input.disabled = true;
@@ -743,34 +745,31 @@
 
       // Radio button listeners
       radioManual.addEventListener("change", () =>
-        switchEnrollmentMethod("manual")
+        switchaddmentMethod("manual")
       );
       radioExcel.addEventListener("change", () =>
-        switchEnrollmentMethod("excel")
+        switchaddmentMethod("excel")
       );
 
       // Function to reset the form state (called on open and close)
-      function resetEnrollForm() {
-        enrollStudentForm.reset();
+      function resetaddForm() {
+        addStudentForm.reset();
         // Default to Manual Mode
         radioManual.checked = true;
-        switchEnrollmentMethod("manual");
+        switchaddmentMethod("manual");
       }
 
-      enrollStudentBtn.addEventListener("click", () => {
+      addStudentBtn.addEventListener("click", () => {
         // Reset form state every time it opens
-        resetEnrollForm();
+        resetaddForm();
 
-        // Pre-fill hidden/readonly fields from selectedClass
-        // studentYearInput.value = selectedClass.subject;
-        // studentSemesterInput.value = selectedClass.semester;
-        // studentBranchInput.value = selectedClass.branch;
 
-        enrollStudentOverlay.classList.add("active"); // Show overlay
+
+        addStudentOverlay.classList.add("active"); // Show overlay
       });
 
-      // Prevent form submission for Enroll Student (as requested)
-      enrollStudentForm.addEventListener("submit", (e) => {
+      // Prevent form submission for add Student (as requested)
+      addStudentForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
         const isManualMode = radioManual.checked;
@@ -778,35 +777,56 @@
         if (isManualMode) {
           // Manual mode
           // Since fields are set to required, form validation takes care of empty fields
-          alert("Manual Enrollment form submitted (action not implemented)");
+          alert("Manual addment form submitted (action not implemented)");
         } else {
           // Excel mode
           if (excelFileInput.files.length === 0) {
             alert("Please select an Excel file to upload.");
             return;
           }
-          alert("Excel File Upload (Enroll action not implemented)");
+          alert("Excel File Upload (add action not implemented)");
         }
 
         // Reset form state before closing
-        resetEnrollForm();
-        closeOverlay("enrollStudentOverlay");
+        resetaddForm();
+        closeOverlay("addStudentOverlay");
       });
 
       // Close overlays when clicking outside the content
-      assignTeacherOverlay.addEventListener("click", (e) => {
-        if (e.target === assignTeacherOverlay) {
-          closeOverlay("assignTeacherOverlay");
+      addTeacherOverlay.addEventListener("click", (e) => {
+        if (e.target === addTeacherOverlay) {
+          closeOverlay("addTeacherOverlay");
         }
       });
-      enrollStudentOverlay.addEventListener("click", (e) => {
-        if (e.target === enrollStudentOverlay) {
-          // Reset enroll form when closing via click outside
-          resetEnrollForm();
-          closeOverlay("enrollStudentOverlay");
+      addStudentOverlay.addEventListener("click", (e) => {
+        if (e.target === addStudentOverlay) {
+          // Reset add form when closing via click outside
+          resetaddForm();
+          closeOverlay("addStudentOverlay");
         }
       });
+
+      async function loadTeachers() {
+        const res = await fetch("/college/teachers", { credentials: "include" });
+        const teachers = await res.json();
+
+        const container = document.getElementById("teachersContainer");
+        container.innerHTML = "";
+
+        teachers.forEach(t => {
+          const box = document.createElement("div");
+          box.className = "teacher-item";
+          box.innerHTML = `
+      <p><b>${t.teacherName}</b></p>
+      <p>ID: ${t.teacherId}</p>
+    `;
+          container.appendChild(box);
+        });
+      }
+      loadTeachers()
+
     });
+
   </script>
 
 </body>
