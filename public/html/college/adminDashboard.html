@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+  <title>College Dashboard</title>
 </head>
 
 <body>
-  <h1>welcome to college dashboard</h1>
+  <h1>Welcome to College Dashboard</h1>
   <button>Logout</button>
   <style>
     .add-class-btn {
@@ -97,7 +97,7 @@
       color: #fff;
     }
 
-    /* add teacher enrol student  styles */
+    /* add teacher enrol student styles */
     .container {
       padding: 20px;
       background-color: #f5f5f5;
@@ -163,9 +163,7 @@
       align-items: center;
       z-index: 1000;
       opacity: 0;
-      /* Initially hidden */
       visibility: hidden;
-      /* Initially hidden */
       transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
@@ -209,9 +207,9 @@
 
     .form-group input[type="text"],
     .form-group input[type="password"],
-    .form-group input[type="email"] {
-      width: calc(100% - 20px);
-      /* Adjust for padding */
+    .form-group input[type="email"],
+    .form-group input[type="file"] {
+      width: 100%;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -221,7 +219,6 @@
     .overlay-buttons {
       display: flex;
       justify-content: flex-end;
-      /* Buttons right-aligned */
       gap: 10px;
       margin-top: 25px;
     }
@@ -233,19 +230,21 @@
 
     .overlay-buttons .cancel-btn {
       background-color: #6c757d;
-      /* Grey */
     }
 
     .overlay-buttons .action-btn {
       background-color: #007bff;
-      /* Blue for add */
+    }
+
+    .overlay-buttons .action-btn:disabled {
+      background-color: #99c2e6;
+      cursor: not-allowed;
     }
   </style>
 
   <button id="addClassBtn" class="add-class-btn">Add Class</button>
 
   <div id="classList" class="grid-container"></div>
-
 
   <div id="overlay" aria-hidden="true">
     <div class="card" role="dialog" aria-modal="true" aria-labelledby="cardTitle">
@@ -277,7 +276,6 @@
           </select>
         </div>
 
-
         <div class="field">
           <label for="branch">Branch</label>
           <select id="branch" name="branch">
@@ -299,20 +297,14 @@
           <button type="submit" class="btn primary" id="submitBtn">Submit</button>
         </div>
       </form>
-
     </div>
-
-
   </div>
-  </div>
+
   <div class="button-container">
-    <button class="button add-teacher" id="addTeacherBtn">
-      Add Teacher
-    </button>
-    <button class="button add-student" id="addStudentBtn">
-      Add Student
-    </button>
+    <button class="button add-teacher" id="addTeacherBtn">Add Teacher</button>
+    <button class="button add-student" id="addStudentBtn">Add Student</button>
   </div>
+
   <div id="addTeacherOverlay" class="overlay">
     <div class="overlay-content">
       <h3>Add Teacher</h3>
@@ -326,14 +318,14 @@
           <label for="teacherId">Teacher ID</label>
           <input type="text" id="teacherId" name="teacherId" required />
         </div>
+
         <div class="form-group">
           <label for="teacherPassword">Teacher Password</label>
           <input type="password" id="teacherPassword" name="teacherPassword" required />
         </div>
+
         <div class="overlay-buttons">
-          <button type="button" class="button cancel-btn" onclick="closeOverlay('addTeacherOverlay')">
-            Cancel
-          </button>
+          <button type="button" class="button cancel-btn" onclick="closeOverlay('addTeacherOverlay')">Cancel</button>
           <button type="submit" class="button action-btn">Add</button>
         </div>
       </form>
@@ -345,13 +337,8 @@
       <h3>Add Student</h3>
       <form id="addStudentForm">
         <div class="form-group" style="text-align: center; margin-bottom: 25px">
-          <label style="font-size: 1.1em; color: #333">Choose addment Method:</label>
-          <div style="
-                margin-top: 10px;
-                display: flex;
-                justify-content: center;
-                gap: 20px;
-              ">
+          <label style="font-size: 1.1em; color: #333">Choose Enrollment Method:</label>
+          <div style="margin-top: 10px; display: flex; justify-content: center; gap: 20px;">
             <label>
               <input type="radio" name="addMethod" value="manual" id="radioManual" checked />
               Manual Form
@@ -368,16 +355,17 @@
         <div id="manualaddSection">
           <div class="form-group">
             <label for="studentName">Student Name</label>
-            <input type="text" id="studentName" name="studentName" required />
+            <input type="text" id="studentName" name="studentName" />
           </div>
+
           <div class="form-group">
-            <label for="addmentNo">addment No.</label>
-            <input type="text" id="addmentNo" name="addmentNo" required />
+            <label for="enrollmentNo">Enrollment No.</label>
+            <input type="text" id="enrollmentNo" name="enrollmentNo" />
           </div>
 
           <div class="field">
             <label for="studentSemester">Semester</label>
-            <select id="studentSemester" name="studentSemester" required>
+            <select id="studentSemester" name="studentSemester">
               <option value="">Select</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -392,18 +380,18 @@
 
           <div class="field">
             <label for="studentBranch">Branch</label>
-            <select id="studentBranch" name="studentBranch" required>
+            <select id="studentBranch" name="studentBranch">
               <option value="">Select</option>
-              <option value="cse">Computer Science Engineering</option>
-              <option value="eee">Electrical Engineering</option>
-              <option value="mech">Mechanical Engineering</option>
-              <option value="ece">Electronics and Telecommunication Engineering</option>
+              <option value="Computer Science Engineering">Computer Science Engineering</option>
+              <option value="Electrical Engineering">Electrical Engineering</option>
+              <option value="Mechanical Engineering">Mechanical Engineering</option>
+              <option value="Electronics and Telecommunication Engineering">Electronics and Telecommunication Engineering</option>
             </select>
           </div>
 
           <div class="field">
             <label for="studentYear">Year</label>
-            <select id="studentYear" name="studentYear" required>
+            <select id="studentYear" name="studentYear">
               <option value="">Select</option>
               <option value="1">First Year</option>
               <option value="2">Second Year</option>
@@ -414,31 +402,25 @@
         </div>
 
         <div id="excelUploadSection" style="display: none">
-          <label for="excelFile" class="form-group" style="
-                display: block;
-                font-weight: bold;
-                margin-bottom: 10px;
-                text-align: center;
-              ">
-            Select Excel File (.xlsx, .xls)
-          </label>
-          <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls" style="width: 100%" />
+          <div class="form-group">
+            <label for="excelFile">Select Excel File (.xlsx, .xls)</label>
+            <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls" />
+          </div>
         </div>
 
         <div class="overlay-buttons">
-          <button type="button" class="button cancel-btn" onclick="closeOverlay('addStudentOverlay')">
-            Cancel
-          </button>
-          <button type="submit" class="button action-btn" id="finalAddBtn">
-            add
-          </button>
+          <button type="button" class="button cancel-btn" onclick="closeOverlay('addStudentOverlay')">Cancel</button>
+          <button type="submit" class="button action-btn" id="finalAddBtn">Add</button>
         </div>
       </form>
     </div>
   </div>
+
   <h2>Teachers List</h2>
   <div id="teachersContainer"></div>
 
+  <h2>Students List</h2>
+  <div id="studentsContainer"></div>
 
   <script>
     const overlay = document.getElementById('overlay');
@@ -457,7 +439,6 @@
       overlay.setAttribute('aria-hidden', 'true');
     });
 
-    // close when clicking outside the card
     overlay.addEventListener('click', (e) => {
       if (e.target === overlay) {
         overlay.classList.remove('active');
@@ -465,14 +446,12 @@
       }
     });
 
-    // Submit should do nothing for now
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      // intentionally left blank
     });
   </script>
+
   <script>
-    // Check token before loading dashboard
     (async () => {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -491,7 +470,6 @@
     })();
   </script>
 
-  <!-- logout script -->
   <script>
     document.querySelector("button").addEventListener("click", async () => {
       const confirmLogout = confirm("Are you sure you want to logout?");
@@ -500,13 +478,13 @@
       try {
         const res = await fetch("/college/logout", {
           method: "POST",
-          credentials: "include", // 👈 important, cookie bhejne ke liye
+          credentials: "include",
         });
 
         const data = await res.json();
         if (res.ok) {
           alert(data.message);
-          window.location.href = "/college/login"; // 👈 redirect to login page
+          window.location.href = "/college/login";
         } else {
           alert("Logout failed. Try again.");
         }
@@ -517,10 +495,7 @@
     });
   </script>
 
-  <!-- adding classes and listing classes script  -->
   <script>
-
-    // open overlay when "Add Class" clicked
     document.getElementById("addClassBtn").addEventListener("click", () => {
       overlay.style.display = "flex";
     });
@@ -529,7 +504,6 @@
       overlay.style.display = "none";
     });
 
-    // submit form
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const formData = {
@@ -573,18 +547,16 @@
         const card = document.createElement("div");
         card.classList.add("class-card");
         card.innerHTML = `
-      <h3>${c.subject}</h3>
-      <p>Semester: ${c.semester}</p>
-      <p>Year: ${c.year}</p>
-      <p>Branch: ${c.branch}</p>
-      <button class="manage-class-btn" data-class-id="${c._id}">Manage Class</button>
-
-    `;
+          <h3>${c.subject}</h3>
+          <p>Semester: ${c.semester}</p>
+          <p>Year: ${c.year}</p>
+          <p>Branch: ${c.branch}</p>
+          <button class="manage-class-btn" data-class-id="${c._id}">Manage Class</button>
+        `;
         container.appendChild(card);
       });
     }
 
-    // load classes on page load
     loadClasses();
 
     document.addEventListener("click", (e) => {
@@ -597,13 +569,9 @@
         }
       }
     });
-
   </script>
 
-
-  <!-- add teacher add student functionality  -->
   <script>
-    // Function to close any overlay
     function closeOverlay(overlayId) {
       document.getElementById(overlayId).classList.remove("active");
     }
@@ -617,33 +585,14 @@
         return;
       }
 
-      // Display class details
-      // document.getElementById("display-semester").textContent = selectedClass.semester;
-      // document.getElementById("display-subject").textContent = selectedClass.subject;
-      // document.getElementById("display-year").textContent =
-      //   selectedClass.year;
-      // document.getElementById("display-branch").textContent =
-      //   selectedClass.branch;
-
-      // --- add Teacher Overlay Logic ---
       const addTeacherBtn = document.getElementById("addTeacherBtn");
-      const addTeacherOverlay = document.getElementById(
-        "addTeacherOverlay"
-      );
-      const teacherSubjectInput = document.getElementById("teacherSubject");
-      const teacherSemesterInput = document.getElementById("teacherSemester");
-      const teacherBranchInput = document.getElementById("teacherBranch");
+      const addTeacherOverlay = document.getElementById("addTeacherOverlay");
       const addTeacherForm = document.getElementById("addTeacherForm");
 
       addTeacherBtn.addEventListener("click", () => {
-        // Pre-fill fields from selectedClass
-        // teacherSubjectInput.value = selectedClass.subject;
-        // teacherSemesterInput.value = selectedClass.semester;
-        // teacherBranchInput.value = selectedClass.branch;
-        addTeacherOverlay.classList.add("active"); // Show overlay
+        addTeacherOverlay.classList.add("active");
       });
 
-      // Prevent form submission for add Teacher (as requested)
       addTeacherForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -665,142 +614,178 @@
 
           if (res.ok) {
             alert("Teacher added!");
-            loadTeachers(); // neeche banayenge
+            loadTeachers();
             closeOverlay("addTeacherOverlay");
           } else {
             alert(json.message);
           }
-
         } catch (err) {
           console.log(err);
           alert("Failed to add teacher");
         }
       });
 
-
-      // --- add Student Overlay Logic ---
-      // --- add Student Overlay Logic ---
       const addStudentBtn = document.getElementById("addStudentBtn");
-      const addStudentOverlay = document.getElementById(
-        "addStudentOverlay"
-      );
+      const addStudentOverlay = document.getElementById("addStudentOverlay");
       const studentYearInput = document.getElementById("studentYear");
       const studentSemesterInput = document.getElementById("studentSemester");
-      const studentBranchInput = document.getElementById("studentBranch");
       const addStudentForm = document.getElementById("addStudentForm");
 
-      const manualaddSection = document.getElementById(
-        "manualaddSection"
-      );
-      const excelUploadSection =
-        document.getElementById("excelUploadSection");
+      studentYearInput.disabled = true;
+      studentYearInput.style.backgroundColor = "#f0f0f0";
+
+      const semesterToYearMap = {
+        "1": "1", "2": "1",
+        "3": "2", "4": "2",
+        "5": "3", "6": "3",
+        "7": "4", "8": "4"
+      };
+
+      studentSemesterInput.addEventListener("change", () => {
+        const selectedSemester = studentSemesterInput.value;
+        if (selectedSemester && semesterToYearMap[selectedSemester]) {
+          studentYearInput.value = semesterToYearMap[selectedSemester];
+        } else {
+          studentYearInput.value = "";
+        }
+      });
+
+      const manualaddSection = document.getElementById("manualaddSection");
+      const excelUploadSection = document.getElementById("excelUploadSection");
       const excelFileInput = document.getElementById("excelFile");
       const studentNameInput = document.getElementById("studentName");
-      const addmentNoInput = document.getElementById("addmentNo");
+      const enrollmentNoInput = document.getElementById("enrollmentNo");
       const finalAddBtn = document.getElementById("finalAddBtn");
 
       const radioManual = document.getElementById("radioManual");
       const radioExcel = document.getElementById("radioExcel");
 
-      // Function to manage field enablement/disabling based on method
       function switchaddmentMethod(method) {
         if (method === "manual") {
-          // Manual Mode
           manualaddSection.style.display = "block";
           excelUploadSection.style.display = "none";
-          finalAddBtn.textContent = "add";
+          finalAddBtn.textContent = "Add";
 
-          // Enable Manual Inputs, Set Required
           studentNameInput.required = true;
-          addmentNoInput.required = true;
-          manualaddSection
-            .querySelectorAll("input:not([readonly])")
-            .forEach((input) => (input.disabled = false));
-
-          // Disable/Reset File Input
-          excelFileInput.disabled = true;
+          enrollmentNoInput.required = true;
           excelFileInput.required = false;
-          excelFileInput.value = ""; // Clear selected file
+          excelFileInput.value = "";
         } else if (method === "excel") {
-          // Excel Mode
           manualaddSection.style.display = "none";
           excelUploadSection.style.display = "block";
-          finalAddBtn.textContent = "Upload & add";
+          finalAddBtn.textContent = "Upload & Add";
 
-          // Disable Manual Inputs, Remove Required
           studentNameInput.required = false;
-          addmentNoInput.required = false;
-          manualaddSection
-            .querySelectorAll("input:not([readonly])")
-            .forEach((input) => {
-              input.disabled = true;
-              input.value = ""; // Clear manual values
-            });
-
-          // Enable File Input, Set Required
-          excelFileInput.disabled = false;
+          enrollmentNoInput.required = false;
           excelFileInput.required = true;
         }
       }
 
-      // Radio button listeners
-      radioManual.addEventListener("change", () =>
-        switchaddmentMethod("manual")
-      );
-      radioExcel.addEventListener("change", () =>
-        switchaddmentMethod("excel")
-      );
+      radioManual.addEventListener("change", () => switchaddmentMethod("manual"));
+      radioExcel.addEventListener("change", () => switchaddmentMethod("excel"));
 
-      // Function to reset the form state (called on open and close)
       function resetaddForm() {
         addStudentForm.reset();
-        // Default to Manual Mode
         radioManual.checked = true;
         switchaddmentMethod("manual");
       }
 
       addStudentBtn.addEventListener("click", () => {
-        // Reset form state every time it opens
         resetaddForm();
-
-
-
-        addStudentOverlay.classList.add("active"); // Show overlay
+        addStudentOverlay.classList.add("active");
       });
 
-      // Prevent form submission for add Student (as requested)
-      addStudentForm.addEventListener("submit", (e) => {
+      addStudentForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const isManualMode = radioManual.checked;
 
         if (isManualMode) {
-          // Manual mode
-          // Since fields are set to required, form validation takes care of empty fields
-          alert("Manual addment form submitted (action not implemented)");
+          const data = {
+            studentName: studentNameInput.value,
+            enrollmentNo: enrollmentNoInput.value,
+            semester: studentSemesterInput.value,
+            branch: document.getElementById("studentBranch").value,
+            year: studentYearInput.value,
+          };
+
+          try {
+            const res = await fetch("/college/add-student", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              credentials: "include",
+              body: JSON.stringify(data)
+            });
+
+            const json = await res.json();
+
+            if (res.ok) {
+              alert("Student added!");
+              await loadStudents();
+              resetaddForm();
+              closeOverlay("addStudentOverlay");
+            } else {
+              alert(json.message);
+            }
+          } catch (err) {
+            console.error(err);
+            alert("Failed to add student");
+          }
         } else {
-          // Excel mode
+          // Excel mode - FIXED
           if (excelFileInput.files.length === 0) {
             alert("Please select an Excel file to upload.");
             return;
           }
-          alert("Excel File Upload (add action not implemented)");
-        }
 
-        // Reset form state before closing
-        resetaddForm();
-        closeOverlay("addStudentOverlay");
+          finalAddBtn.disabled = true;
+          finalAddBtn.textContent = "Uploading...";
+
+          try {
+            const formData = new FormData();
+            formData.append("excelFile", excelFileInput.files[0]);
+
+            const res = await fetch("/college/add-student-excel", {
+              method: "POST",
+              credentials: "include",
+              body: formData
+            });
+
+            let json;
+            const text = await res.text();
+            try {
+              json = JSON.parse(text);
+            } catch (e) {
+              json = null;
+            }
+
+            if (res.ok) {
+              alert(json?.message || "All students added successfully!");
+              await loadStudents();
+              resetaddForm();
+              closeOverlay("addStudentOverlay");
+            } else {
+              console.error("Upload failed response:", text);
+              alert(json?.message || `Upload failed (${res.status}). See console.`);
+            }
+          } catch (err) {
+            console.error("Excel upload error:", err);
+            alert("Failed to upload Excel. Check console and server logs.");
+          } finally {
+            finalAddBtn.disabled = false;
+            finalAddBtn.textContent = "Upload & Add";
+          }
+        }
       });
 
-      // Close overlays when clicking outside the content
       addTeacherOverlay.addEventListener("click", (e) => {
         if (e.target === addTeacherOverlay) {
           closeOverlay("addTeacherOverlay");
         }
       });
+
       addStudentOverlay.addEventListener("click", (e) => {
         if (e.target === addStudentOverlay) {
-          // Reset add form when closing via click outside
           resetaddForm();
           closeOverlay("addStudentOverlay");
         }
@@ -817,18 +802,114 @@
           const box = document.createElement("div");
           box.className = "teacher-item";
           box.innerHTML = `
-      <p><b>${t.teacherName}</b></p>
-      <p>ID: ${t.teacherId}</p>
-    `;
+            <p><b>${t.teacherName}</b></p>
+            <p>ID: ${t.teacherId}</p>
+          `;
           container.appendChild(box);
         });
       }
-      loadTeachers()
-
+      loadTeachers();
     });
-
   </script>
 
+  <script>
+    async function loadStudents() {
+      const res = await fetch("/college/students", { credentials: "include" });
+      const students = await res.json();
+
+      const container = document.getElementById("studentsContainer");
+      container.innerHTML = "";
+
+      const grouped = {};
+
+      students.forEach(s => {
+        if (!grouped[s.branch]) {
+          grouped[s.branch] = {};
+        }
+        if (!grouped[s.branch][s.year]) {
+          grouped[s.branch][s.year] = {};
+        }
+        if (!grouped[s.branch][s.year][s.semester]) {
+          grouped[s.branch][s.year][s.semester] = [];
+        }
+        grouped[s.branch][s.year][s.semester].push(s);
+      });
+
+      Object.keys(grouped).sort().forEach(branch => {
+        const branchDiv = document.createElement("div");
+        branchDiv.style.marginBottom = "20px";
+        branchDiv.style.border = "2px solid #0078d4";
+        branchDiv.style.padding = "15px";
+        branchDiv.style.borderRadius = "8px";
+        branchDiv.style.backgroundColor = "#e8f0f7";
+
+        const branchTitle = document.createElement("h2");
+        branchTitle.textContent = `📚 ${branch}`;
+        branchTitle.style.color = "#0078d4";
+        branchTitle.style.marginTop = "0";
+        branchDiv.appendChild(branchTitle);
+
+        Object.keys(grouped[branch]).sort().forEach(year => {
+          const yearDiv = document.createElement("div");
+          yearDiv.style.marginBottom = "15px";
+          yearDiv.style.border = "1px solid #999";
+          yearDiv.style.padding = "12px";
+          yearDiv.style.borderRadius = "6px";
+          yearDiv.style.backgroundColor = "#f5f5f5";
+          yearDiv.style.marginLeft = "20px";
+
+          const yearTitle = document.createElement("h3");
+          yearTitle.textContent = `📖 Year ${year}`;
+          yearTitle.style.color = "#555";
+          yearTitle.style.marginTop = "0";
+          yearDiv.appendChild(yearTitle);
+
+          Object.keys(grouped[branch][year]).sort((a, b) => a - b).forEach(semester => {
+            const semDiv = document.createElement("div");
+            semDiv.style.marginBottom = "12px";
+            semDiv.style.border = "1px solid #ccc";
+            semDiv.style.padding = "10px";
+            semDiv.style.borderRadius = "4px";
+            semDiv.style.backgroundColor = "#ffffff";
+            semDiv.style.marginLeft = "20px";
+
+            const semTitle = document.createElement("h4");
+            semTitle.textContent = `📋 Semester ${semester}`;
+            semTitle.style.color = "#333";
+            semTitle.style.marginTop = "0";
+            semDiv.appendChild(semTitle);
+
+            const table = document.createElement("table");
+            table.style.width = "100%";
+            table.style.borderCollapse = "collapse";
+            table.innerHTML = `
+              <tr style="background-color: #d4e6f1; border-bottom: 1px solid #0078d4;">
+                <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Name</th>
+                <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Enrollment</th>
+                <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Semester</th>
+              </tr>
+              ${grouped[branch][year][semester].map(s => `
+                <tr style="border-bottom: 1px solid #ddd;">
+                  <td style="padding: 8px; border: 1px solid #ddd;">${s.studentName}</td>
+                  <td style="padding: 8px; border: 1px solid #ddd;">${s.enrollmentNo}</td>
+                  <td style="padding: 8px; border: 1px solid #ddd;">${s.semester}</td>
+                </tr>
+              `).join("")}
+            `;
+
+            semDiv.appendChild(table);
+            yearDiv.appendChild(semDiv);
+          });
+
+          branchDiv.appendChild(yearDiv);
+        });
+
+        container.appendChild(branchDiv);
+      });
+    }
+
+    loadStudents();
+  </script>
 </body>
 
 </html>

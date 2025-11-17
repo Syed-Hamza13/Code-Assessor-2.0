@@ -1,33 +1,32 @@
 import express from "express";
 import path from "path";
 import rootDir from "../utils/pathUtils.js";
+import multer from "multer";
 import { verifyToken } from "../middlewares/authMiddleware.js";
 
 import {
   createClass,
   getCollegeClasses,
   addTeacher,
-  getTeachers
+  getTeachers,
+  addStudent,
+  getStudents,
+  addStudentExcel
 } from "../controllers/adminController.js";
 
-const adminRouter = express.Router();
+const adminRouter = express.Router(); 
 
 const collegePagesPath = path.join(rootDir, "public/html/college/");
 
-//unprotected route
-// adminRouter.get("/college/dashboard", (req, res) => {
-//   res.sendFile(path.join(collegePagesPath, "adminDashboard.html"));
-// });
+const upload = multer({ dest: "uploads/" });
+
 
 // Protected route: only logged-in colleges can access
 adminRouter.get("/college/dashboard", verifyToken, (req, res) => {
   res.sendFile(path.join(collegePagesPath, "adminDashboard.html"));
 });
 
-// unprotected route
-// adminRouter.get("/college/manage-class", (req, res) => {
-//   res.sendFile(path.join(collegePagesPath, "class.html"));
-// });
+
 
 // protected rout only logged-in colleges can access
 adminRouter.get("/college/manage-class", verifyToken, (req, res) => {
@@ -42,25 +41,18 @@ adminRouter.get("/college/classes", verifyToken, getCollegeClasses);
 adminRouter.post("/college/add-teacher", verifyToken, addTeacher);
 adminRouter.get("/college/teachers", verifyToken, getTeachers);
 
+
+adminRouter.post(
+  "/college/add-student-excel",
+  verifyToken,
+  upload.single("excelFile"),
+  addStudentExcel
+);
+
+adminRouter.post("/college/add-student", verifyToken, addStudent);
+adminRouter.get("/college/students", verifyToken, getStudents);
+
+// Move exports to bottom so all routes are registered
 export { adminRouter };
 export { collegePagesPath };
 
-// import express from "express";
-// import path from "path";
-// import rootDir from "../utils/pathUtils.js";
-// import { verifyToken } from "../middlewares/authMiddleware.js";
-
-// const adminRouter = express.Router();
-// const collegePagesPath = path.join(rootDir, "public/html/college/");
-
-// // Protected route: only logged-in colleges can access
-// adminRouter.get("/college/dashboard", verifyToken, (req, res) => {
-//   res.sendFile(path.join(collegePagesPath, "adminDashboard.html"));
-// });
-
-// adminRouter.get("/college/manage-class", verifyToken, (req, res) => {
-//   res.sendFile(path.join(collegePagesPath, "class.html"));
-// });
-
-// export { adminRouter };
-// export { collegePagesPath };

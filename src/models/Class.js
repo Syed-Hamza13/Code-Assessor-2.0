@@ -8,5 +8,5 @@ const classSchema = new mongoose.Schema({
   branch: { type: String, required: true },
   createdAt: { type: Date, default: Date.now }
 });
-
+   
 export const Class = mongoose.model("Class", classSchema);
