@@ -8,6 +8,12 @@ import { studentPagesPath} from "./studentRouter.js";
 import { collegePagesPath} from "./adminRouter.js";
 import { teacherPagesPath} from "./teacherRouter.js";
 
+// teacher controller.js 
+import { loginTeacher } from "../controllers/teacherController.js";
+
+// student controller.js 
+import { loginStudent } from "../controllers/studentController.js";
+
 const authRouter = express.Router(); 
 
 
@@ -33,6 +39,21 @@ authRouter.get("/teacher/login", (req, res) => {
 authRouter.get("/student/login", (req, res) => {
   res.sendFile(path.join(studentPagesPath, "login.html"));
 });
+
+
+// teacher auth routes
+// authRouter.get("/teacher/login", (req, res) => {
+//   res.sendFile(path.join(teacherPagesPath, "login.html"));
+// });
+
+authRouter.post("/teacher/login", loginTeacher);
+
+// student auth routes
+// authRouter.get("/student/login", (req, res) => {
+//   res.sendFile(path.join(studentPagesPath, "login.html"));
+// });
+
+authRouter.post("/student/login", loginStudent);
 
 export { authRouter };
 

@@ -23,3 +23,13 @@ export const verifyToken = (req, res, next) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+export const requireRole = (role) => {
+  return (req, res, next) => {
+    if (!req.user || req.user.role !== role) {
+      return res.status(403).json({ message: "Forbidden: invalid role" });
+    }
+    next();
+  };
+};
+

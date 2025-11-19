@@ -93,13 +93,13 @@
 
     <div class="login-container">
         <h2>Student Login</h2>
-        <form action="/student/login" method="POST"> <div class="input-group">
+        <form id="studentLoginForm" action="/student/login" method="POST"> <div class="input-group">
                 <label for="username">Username</label>
-                <input type="text" id="studentUsername" name="studentUsername" placeholder="Enter Username" required>
+                <input type="text" id="enrollmentNo" name="studentUsername" placeholder="Enter Username" required>
             </div>
             <div class="input-group">
                 <label for="password">Password</label>
-                <input type="password" id="studentPassword" name="studentPassword" placeholder="Enter Password" required>
+                <input type="password" id="password" name="studentPassword" placeholder="Enter Password" required>
             </div>
             
             <div class="buttons">
@@ -109,4 +109,41 @@
     </div>
 
 </body>
+<script>
+  const form = document.getElementById("studentLoginForm");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+ 
+    const enrollmentNo = document.getElementById("enrollmentNo").value.trim();
+    const password = document.getElementById("password").value.trim(); // yaha pe bhi enrollmentNo hi daaloge
+
+    try {
+      const res = await fetch("/student/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ enrollmentNo, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message || "Login failed");
+        return;
+      }
+
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+      }
+
+      window.location.href = data.redirect || "/student/dashboard";
+    } catch (err) {
+      console.error("Student login error:", err);
+      alert("Something went wrong.");
+    }
+  });
+</script>
+
+
 </html>

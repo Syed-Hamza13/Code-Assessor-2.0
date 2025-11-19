@@ -92,9 +92,9 @@
 <body>
     <div class="login-container">
         <h2>Teacher Login</h2>
-        <form action="/teacher/login" method="POST"> <div class="input-group">
+        <form action="/teacher/login" method="POST" id="teacherLoginForm"> <div class="input-group">
                 <label for="username">Username</label>
-                <input type="text" id="teacherUsername" name="teacherUsername" placeholder="Enter Username" required>
+                <input type="text" id="teacherId" name="teacherUsername" placeholder="Enter Username" required>
             </div>
             <div class="input-group">
                 <label for="password">Password</label>
@@ -107,4 +107,42 @@
         </form>
     </div>
 </body>
+<script>
+  const form = document.getElementById("teacherLoginForm");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const teacherId = document.getElementById("teacherId").value.trim();
+    const password = document.getElementById("teacherPassword").value.trim();
+ 
+    try {
+      const res = await fetch("/teacher/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ teacherId, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message || "Login failed");
+        return;
+      }
+
+      // token localStorage me bhi rakh lo (agar future me headers se use karna ho)
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+      }
+
+      window.location.href = data.redirect || "/teacher/dashboard";
+    } catch (err) {
+      console.error("Teacher login error:", err);
+      alert("Something went wrong.");
+    }
+  });
+</script>
+
+
 </html>
